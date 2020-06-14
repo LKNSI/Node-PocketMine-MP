@@ -1,3 +1,11 @@
+/////////////////////////
+/*
+
+	A Full 1-1 conversion of PHP to NodeJS (Javascript)
+
+*/
+////////////////////////
+
 const fs = require('fs');
 const http = require('http');
 const BlockFactory = require('./block/BlockFactory');
