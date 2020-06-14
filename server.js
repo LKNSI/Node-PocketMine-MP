@@ -173,7 +173,6 @@ class Server {
 
 		// ES6 classes are syntatic sugar of constructors, and by virtue are automatically private. # = Static.
 		// this can be seen as writing $this->nextTick as this.nextTick in JS.
-		// let is scopped, var is semi scoped, const is higher scoped.;
 
 		this.instance = null;
 		this.sleeper;
