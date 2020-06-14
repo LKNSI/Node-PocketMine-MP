@@ -79,7 +79,9 @@ const Utils = require('./utils/Utils');
 //	Using Community UUID Handler Instead.
 const {v4: uuidv4} = require('uuid');
 
-// Replacting pocketmine 'namespace', through a object dictionary. pocketmine["BlockFactory"] === BlockFactory, equally pocketmine["BlockFactory"].someFunction === BlockFactory.someFunction
+// Replicating pocketmine 'namespace', through a object dictionary. pocketmine["BlockFactory"] === BlockFactory, equally pocketmine["BlockFactory"].someFunction === BlockFactory.someFunction
+// Why not just use the standard constructors? To provider the same namespace paradigm to PHP users.
+
 const pocketmine = {
 	"BlockFactory": BlockFactory,
 	"CommandReader": CommandReader,
