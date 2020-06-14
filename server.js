@@ -83,6 +83,14 @@ const {v4: uuidv4} = require('uuid');
 // Replicating pocketmine 'namespace', through a object dictionary. pocketmine["BlockFactory"] === BlockFactory, equally pocketmine["BlockFactory"].someFunction === BlockFactory.someFunction
 // Why not just use the standard constructors? To provider the same namespace paradigm to PHP users.
 
+/*
+	Root Files
+	
+*/
+
+const Player = require('./Player')
+
+
 const pocketmine = {
 	"BlockFactory": BlockFactory,
 	"CommandReader": CommandReader,
@@ -323,5 +331,16 @@ class Server {
 			// Need to determine what we are actually changing file wise.
 		}
 	}
+
+	getGamemodeString(interger){
+		let strobj = ["%gameMode.survival","%gameMode.creative","%gameMode.adventure","%gameMode.spectator"]
+		return interger > (strobj.length - 1) ? strobj[interger] : new Error("Invalid Gamemode")
+	}
+
+	getGameModeName(string){
+		let strobj = ["Survival","Creative","Adventure","Spectator"]
+		return interger > (strobj.length - 1) ? strobj[interger] : new Error("Invalid Gamemode")
+	}
+
 
 }
