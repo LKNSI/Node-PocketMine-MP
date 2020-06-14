@@ -334,12 +334,39 @@ class Server {
 
 	getGamemodeString(interger){
 		let strobj = ["%gameMode.survival","%gameMode.creative","%gameMode.adventure","%gameMode.spectator"]
-		return interger > (strobj.length - 1) ? strobj[interger] : new Error("Invalid Gamemode")
+		return interger <= (strobj.length - 1) ? strobj[interger] : new Error("Invalid Gamemode")
 	}
 
-	getGameModeName(string){
+	getGameModeName(interger){
 		let strobj = ["Survival","Creative","Adventure","Spectator"]
-		return interger > (strobj.length - 1) ? strobj[interger] : new Error("Invalid Gamemode")
+		return interger <= (strobj.length - 1) ? strobj[interger] : new Error("Invalid Gamemode")
+	}
+
+	getGamemodeFromString(string){
+        var returnvalue;
+
+
+        // Benchmark: Switch against  IF =>  IF: 0.078ms, SWITCH: 0.029ms, therefore Switch will be used. Unit test in /playground/
+
+        switch(string){
+             case "survival":{returnvalue = 0;break;}
+             case "s":{returnvalue = 0;break;}
+
+              case "creative":{returnvalue = 1;break;}
+              case "c":{returnvalue = 1;break;}
+
+              case "adventure":{returnvalue = 2;break;} 
+              case "a":{returnvalue = 2;break;}
+
+              case "spectator":{returnvalue = 3;break;} 
+              case "v":{returnvalue = 3;break;}
+              case "view":{returnvalue = 3;break;}
+
+              default:{returnvalue = -1;}       
+        }
+
+		return returnvalue
+
 	}
 
 
