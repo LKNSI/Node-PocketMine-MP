@@ -172,6 +172,8 @@ class Server {
 	constructor(){
 
 		// ES6 classes are syntatic sugar of constructors, and by virtue are automatically private. # = Static.
+		// this can be seen as writing $this->nextTick as this.nextTick in JS.
+		// let is scopped, var is semi scoped, const is higher scoped.;
 
 		this.instance = null;
 		this.sleeper;
@@ -239,7 +241,7 @@ class Server {
 		return this.isRunning;
 	}
 
-	getName(){
+	getPocketMineVersion(){
 		// Needs Pointer
 		return null;
 	}
@@ -270,7 +272,57 @@ class Server {
 		return this.pluginPath;
 	}
 
+	getMaxPlayers(){
+		return this.maxPlayers;
+	}
 
+	getOnlineMode(){
+		return this.onlineMode;
+	}
 
+	requiresAuthentication(){
+		return getOnlineMode();
+	}
+
+	getPort(){
+		return getConfigInt("server-port",19132);
+	}
+
+	getViewDistance(){
+		// Need to be careful that getconfigInt returns numbers in array.
+		let array = [2]
+		let newvalues = getConfigInt("view-distance",8);
+		return Math.max(array.concat[newvalues]);
+	}
+
+	getAllowedViewDistance(interger){
+		// Need to revist, memoryManager seems to have control over memory usage, may have to replace it with v8 GC memory usage/ ~ process.memory
+		//let array = [2]
+		//let newvalues = memoryManager[]
+
+	}
+
+	getPublicIP(){
+		let pip = getConfigString("server-ip")
+		return pip !== "" ? pip : "0.0.0.0"
+	}
+
+	getServerUniqueID(){
+		// Random for now.
+		return uuidv4();
+	}
+
+	getAutoSave(){
+		return autoSave();
+	}
+
+	setAutoSave(boolean){
+		// Global for now until I determine the implications of different states of autosaves.
+		let ast = autoSave(boolean)
+		let gsl = getLevels();
+		for(var i = 0; i < gsl.length; i++){
+			// Need to determine what we are actually changing file wise.
+		}
+	}
 
 }
