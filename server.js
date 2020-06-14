@@ -8,6 +8,17 @@
 
 const fs = require('fs');
 const http = require('http');
+
+/*
+	Node-pocketmine-MP Rewrites - Start
+*/
+
+const getConfigInt = require('./config.js')
+
+/*
+	Node-pocketmine-MP Rewrites - End
+*/
+
 const BlockFactory = require('./block/BlockFactory');
 const CommandReader = require('./command/CommandReader');
 const CommandSender = require('./command/CommandSender');
@@ -300,13 +311,13 @@ class Server {
 	}
 
 	getPort(){
-		return getConfigInt("server-port",19132);
+		return getConfigInt("server-port");
 	}
 
 	getViewDistance(){
 		// Need to be careful that getconfigInt returns numbers in array.
 		let array = [2]
-		let newvalues = getConfigInt("view-distance",8);
+		let newvalues = getConfigInt("view-distance");
 		return Math.max(array.concat[newvalues]);
 	}
 
@@ -360,22 +371,112 @@ class Server {
              case "survival":{returnvalue = 0;break;}
              case "s":{returnvalue = 0;break;}
 
-              case "creative":{returnvalue = 1;break;}
-              case "c":{returnvalue = 1;break;}
+             case "creative":{returnvalue = 1;break;}
+             case "c":{returnvalue = 1;break;}
 
-              case "adventure":{returnvalue = 2;break;} 
-              case "a":{returnvalue = 2;break;}
+             case "adventure":{returnvalue = 2;break;} 
+             case "a":{returnvalue = 2;break;}
 
-              case "spectator":{returnvalue = 3;break;} 
-              case "v":{returnvalue = 3;break;}
-              case "view":{returnvalue = 3;break;}
+             case "spectator":{returnvalue = 3;break;} 
+             case "v":{returnvalue = 3;break;}
+             case "view":{returnvalue = 3;break;}
 
-              default:{returnvalue = -1;}       
+             default:{returnvalue = -1;}       
         }
 
 		return returnvalue
 
 	}
 
+	getDifficulty(){
+		return getConfigInt("difficulty");
+	}
+
+	hasWhitelist(){
+		return getConfigInt("white-list");
+	}
+
+	getSpawnRadius(){
+		return getConfigInt("spawn-protection");
+	}
+
+	getEntityMetaData(){
+		return this.entityMetadata;
+	}
+
+	getLevelMetaData(){
+		return this.levelMetadata;
+	}
+
+	getCraftingManager(){
+		return this.craftingManager;
+	}
+
+	getTick(){
+		return this.tickCounter;
+	}
+
+	getTicksPerSecond(){
+		return (this.currentTPS + 0.5) << 0;
+	}
+
+	getTicksPerSecondAverage(){
+		return ((this.tickAverage.reduce((a,b) => a+b,0))/this.tickAverage.length)
+	}
+
+	getTicksUsage(){
+		return (Math.round(this.currentUse * 100) / 100)
+	}
+
+	getTicksUsageAverage(){
+		return (Math.round(((this.tickAverage.reduce((a,b) => a+b,0))/this.tickAverage.length) * 100) / 100)
+	}
+
+	getCommandMap(){
+		return this.commandMap
+	}
+
+	getOnlinePlayers(){
+		return this.playerList
+	}
+
+	shouldSavePlayerData(){
+		// Todo
+		//		return getProperty("")
+	}
+
+	getOfflinePlayer(string){
+		let name = string.toLowerCase();
+		let result = this.getPlayerExact(name);
+
+		if(result === null){
+			// result = new OfflinePlayer(this, name)
+		}
+		return result;
+	}
+
+	getPlayerDataPath(string){
+		let dp = this.getDataPath()
+		let concat = dp + '/players/' + string.toLowerCase() + '.dat';
+		return concat;
+	}
+
+	async hasOfflinePlayerData(string){
+		let filepath = await getPlayerDataPath(string)
+		return fs.access(filepath, fs.constants.F_OK, (err) => {
+			return (err ? false : true)
+		})
+	}
+
+	async getOfflinePlayerData(string){
+		let name = string.toLowerCase()
+		let filepath = await getPlayerDataPath(string)
+		let hasOffline = await hasOfflinePlayerData(string)
+		if(shouldSavePlayerData()){
+			if(hasOffline){
+
+			}
+		}
+	}
 
 }
