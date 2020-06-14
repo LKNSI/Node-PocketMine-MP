@@ -1,4 +1,5 @@
-
+const fs = require('fs');
+const http = require('http');
 const BlockFactory = require('./block/BlockFactory');
 const CommandReader = require('./command/CommandReader');
 const CommandSender = require('./command/CommandSender');
@@ -155,4 +156,121 @@ const pocketmine = {
 	"Terminal": Terminal,
 	"TextFormat": TextFormat,
 	"Utils": Utils
+}
+
+/*
+	Most 'use function' directives from PHP are not required in Nodejs as they are standard.
+	Hence they are omitted here.
+*/
+
+
+const BROADCAST_CHANNEL_ADMINISTRATIVE = "pocketmine.broadcast.admin"
+const BROADCAST_CHANNEL_USERS = "pocketmine.broadcast.user" 
+
+class Server {
+
+	constructor(){
+
+		// ES6 classes are syntatic sugar of constructors, and by virtue are automatically private. # = Static.
+
+		this.instance = null;
+		this.sleeper;
+		this.tickSleeper;
+		this.banByName;
+		this.banByIP;
+		this.operators;
+		this.whitelist;
+		this.isRunning = true;
+		this.hasStopped = false;
+		this.pluginManager;
+		this.profilingTickRate = 20;
+		this.updater;
+		this.asyncPool;
+		this.tickCounter = 0;
+		this.nextTick = 0;
+		this.tickAverage = [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20]
+		this.useAverage = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		this.currentTPS = 20;
+		this.currentUse = 0;
+		this.doTitleTick = true;
+		this.sendUsageTicker = 0;
+		this.dispatchSignals = false;
+		this.logger;
+		this.memoryManager;
+		this.console;
+		this.commandMap;
+		this.craftingManager;
+		this.resourceManager;
+		this.maxPlayers;
+		this.onlineMode = true;
+		this.autoSave;
+		this.entityMetadata;
+		this.playerMetadata;
+		this.levelMetadata;
+		this.network;
+		this.networkCompressionAsync = true;
+		this.networkCompressionLevel = 7;
+		this.autoSaveTicker = 0;
+		this.autoSaveTicks = 6000;
+		this.baseLang;
+		this.forceLanguage = false;
+		this.serverID;
+		this.autoloader;
+		this.dataPath;
+		this.pluginPath;
+		this.uniquePlayers;
+		this.queryHandler;
+		this.queryRegenerateTask;
+		this.properties;
+		this.config;
+		this.players = [];
+		this.loggedInPlayers = [];
+		this.playerList = [];
+		this.levels = [];
+		this.levelDefault = null;
+	}
+
+	getName(){
+		// Needs Pointer
+		return null;
+	}
+
+	isRunning(){
+		return this.isRunning;
+	}
+
+	getName(){
+		// Needs Pointer
+		return null;
+	}
+
+	getVersion(){
+		return pocketmine["ProtocolInfo"]["MINECRAFT_VERSION"];
+	}
+
+	getAPIVersion(){
+		// Needs Pointer
+		return null;
+	}
+
+	getFilePath(){
+		return process.cwd();
+	}
+
+	getResourcePath(){
+		// Needs Pointer
+		return null
+	}
+
+	getDataPath(){
+		return this.dataPath;
+	}
+
+	getPluginPath(){
+		return this.pluginPath;
+	}
+
+
+
+
 }
